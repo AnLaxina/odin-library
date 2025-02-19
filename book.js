@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 // Cool object constructor for book
 // But why do we use the function keyword man...
 function Book(title, author, pages, haveRead) {
@@ -7,6 +9,11 @@ function Book(title, author, pages, haveRead) {
     this.read = haveRead;
 
     this.info = () => `${title} by ${author}, ${pages} pages, read: ${haveRead}`;
+}
+
+function addBookToLibrary(title, author, pages, haveRead) {
+    const newBook = new Book(title, author, pages, haveRead);
+    myLibrary.push(newBook);
 }
 
 Book.prototype.info = () => "You choose, Spider-Man!";
