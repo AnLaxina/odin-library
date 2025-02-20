@@ -6,12 +6,6 @@ const closeButton = document.querySelector(".closeButton");
 const dialog = document.querySelector("dialog");
 const addBookDialog = document.querySelector(".addBookDialog");
 
-// Retrieve the form's fields
-const title = document.getElementById("title");
-const author = document.getElementById("author");
-const pages = document.getElementById("pages");
-const haveRead = document.getElementById("true");
-
 // Cool object constructor for book
 // But why do we use the function keyword man...
 function Book(title, author, pages, haveRead) {
@@ -63,12 +57,15 @@ function addBookToTable(event) {
         // exit the function since the forms are not filled
         return;
     }
+    // Retrieve the form's fields
+    const title = document.getElementById("title");
+    const author = document.getElementById("author");
+    const pages = document.getElementById("pages");
+    const haveRead = document.querySelector('input[name="haveRead"]:checked');
 
     addBookToLibrary(title.value, author.value, pages.value, haveRead.value);
 
-    dialog.returnValue = myLibrary;
     event.preventDefault();
-    console.log(`The returnvalue is: ${dialog.returnValue}`);
     dialog.close();
     displayBooksToPage(myLibrary)
 }
