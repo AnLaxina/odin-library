@@ -1,4 +1,6 @@
 const myLibrary = [];
+const form = document.querySelector("form");
+
 
 const main = document.querySelector("main");
 const addBookButton = document.querySelector(".addBook");
@@ -50,7 +52,6 @@ function displayBooksToPage(booksList) {
 function addBookToTable(event) {
     // In order to check if the user checked every input 
     // we first get the form itself and check if it's filled
-    const form = document.querySelector("form");
     if (!form.checkValidity()) {
         // Shows the required form messages
         form.reportValidity();
@@ -78,6 +79,11 @@ addBookButton.addEventListener("click", () => {
     dialog.showModal();
 });
 closeButton.addEventListener("click", () => {
+    form.reset();
     dialog.close();
 });
+
 addBookDialog.addEventListener("click", addBookToTable);
+addBookDialog.addEventListener("click", () => {
+    form.reset();
+});
