@@ -41,7 +41,7 @@ form {
 }
 
 .addBook,
-[type="submit"] {
+.addBookDialog {
     background-color: #1c1c1c;
     color: #bcbcbc;
     font-family: monospace;
@@ -53,14 +53,14 @@ form {
     height: 50px;
 }
 
-[type="submit"] {
+.addBookDialog {
     width: 100px;
     height: 25px;
     align-self: center;
 }
 
 .addBook:hover,
-[type="submit"]:hover {
+.addBookDialog:hover {
     background-color: #403939;
 }
 

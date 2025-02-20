@@ -4,6 +4,7 @@ const main = document.querySelector("main");
 const addBookButton = document.querySelector(".addBook");
 const closeButton = document.querySelector(".closeButton");
 const dialog = document.querySelector("dialog");
+const addBookDialog = document.querySelector(".addBookDialog");
 
 // Cool object constructor for book
 // But why do we use the function keyword man...
@@ -46,16 +47,29 @@ function displayBooksToPage(booksList) {
     }
 }
 
-function createDialogBox() {
-    dialog.showModal();
-
+function addBookToTable(event) {
+    // In order to check if the user checked every input 
+    // we first get the form itself and check if it's filled
+    const form = document.querySelector("form");
+    if (!form.checkValidity()) {
+        // Shows the required form messages
+        form.reportValidity();
+        // exit the function since the forms are not filled
+        return;
+    }
+    event.preventDefault();
+    console.log(`The returnvalue is: ${dialog.returnValue}`);
+    dialog.close();
 }
 
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, true);
 addBookToLibrary("Harry Potter", "J.K Rowling", 301, true);
 displayBooksToPage(myLibrary);
 
-addBookButton.addEventListener("click", createDialogBox);
+addBookButton.addEventListener("click", () => {
+    dialog.showModal();
+});
 closeButton.addEventListener("click", () => {
     dialog.close();
 });
+addBookDialog.addEventListener("click", addBookToTable);
