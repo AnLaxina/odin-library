@@ -18,13 +18,29 @@ function addBookToLibrary(title, author, pages, haveRead) {
 }
 
 function displayBooksToPage(booksList) {
-    const table = document.querySelector("tbody");
+    const tbody = document.querySelector("tbody");
     for (let i = 0; i < booksList.length; i++) {
         const tableRow = document.createElement("tr");
-        table.appendChild(tableRow);
+
+        const title = document.createElement("td");
+        const author = document.createElement("td");
+        const pages = document.createElement("td");
+        const haveRead = document.createElement("td");
+
+        title.textContent = booksList[i].title;
+        author.textContent = booksList[i].author;
+        pages.textContent = booksList[i].pages;
+        haveRead.textContent = booksList[i].read;
+
+        tbody.appendChild(tableRow);
+        tableRow.appendChild(title);
+        tableRow.appendChild(author);
+        tableRow.appendChild(pages);
+        tableRow.appendChild(haveRead);
 
     }
 }
 
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, true);
+addBookToLibrary("Harry Potter", "J.K Rowling", 301, true);
 displayBooksToPage(myLibrary);
