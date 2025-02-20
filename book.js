@@ -17,6 +17,14 @@ function addBookToLibrary(title, author, pages, haveRead) {
     myLibrary.push(newBook);
 }
 
-const theHobbit = new Book("The Hobbit", "J.R.R Tolkien", 295, true);
-console.log(theHobbit.info());
-console.log(Book.prototype);
+function displayBooksToPage(booksList) {
+    const table = document.querySelector("tbody");
+    for (let i = 0; i < booksList.length; i++) {
+        const tableRow = document.createElement("tr");
+        table.appendChild(tableRow);
+
+    }
+}
+
+addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, true);
+displayBooksToPage(myLibrary);
