@@ -27,6 +27,7 @@ function addBookToLibrary(title, author, pages, haveRead) {
 
 function displayBooksToPage(booksList) {
     const tbody = document.querySelector("tbody");
+    tbody.textContent = "";
     for (let i = 0; i < booksList.length; i++) {
         const tableRow = document.createElement("tr");
 
