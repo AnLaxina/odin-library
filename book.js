@@ -1,5 +1,8 @@
 const myLibrary = [];
 
+const main = document.querySelector("main");
+const addBookButton = document.querySelector(".addBook");
+
 // Cool object constructor for book
 // But why do we use the function keyword man...
 function Book(title, author, pages, haveRead) {
@@ -41,6 +44,15 @@ function displayBooksToPage(booksList) {
     }
 }
 
+function createDialogBox() {
+    const dialog = document.createElement("dialog");
+    main.appendChild(dialog);
+    dialog.showModal();
+
+}
+
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, true);
 addBookToLibrary("Harry Potter", "J.K Rowling", 301, true);
 displayBooksToPage(myLibrary);
+
+addBookButton.addEventListener("click", createDialogBox);

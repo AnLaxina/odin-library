@@ -33,7 +33,7 @@ main {
     justify-content: center;
 }
 
-button {
+.addBook {
     background-color: #1c1c1c;
     color: #bcbcbc;
     font-family: monospace;
@@ -43,6 +43,6 @@ button {
 
 }
 
-button:hover {
+.addBook:hover {
     background-color: #403939;
 }
