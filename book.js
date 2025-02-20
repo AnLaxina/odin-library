@@ -2,6 +2,7 @@ const myLibrary = [];
 
 const main = document.querySelector("main");
 const addBookButton = document.querySelector(".addBook");
+const dialog = document.querySelector("dialog");
 
 // Cool object constructor for book
 // But why do we use the function keyword man...
@@ -45,8 +46,6 @@ function displayBooksToPage(booksList) {
 }
 
 function createDialogBox() {
-    const dialog = document.createElement("dialog");
-    main.appendChild(dialog);
     dialog.showModal();
 
 }
