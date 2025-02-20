@@ -33,6 +33,13 @@ main {
     justify-content: center;
 }
 
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 8px;
+}
+
 .addBook {
     background-color: #1c1c1c;
     color: #bcbcbc;
@@ -50,8 +57,15 @@ main {
 .closeButton {
     border-radius: 25px;
     font-size: 1.2rem;
+    margin-left: 175px;
 }
 
 .closeButton:hover {
     background-color: white;
+}
+
+.choices {
+    display: flex;
+    align-items: center;
+    gap: 4px;
 }

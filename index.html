@@ -31,6 +31,7 @@
         <!-- This appears whenever the button above is clicked -->
         <dialog>
             <button autofocus type="button" class="closeButton">X</button>
+
             <form action="#" autocomplete="off">
                 <label for="title">Title: </label>
                 <input type="text" id="title">
@@ -41,10 +42,12 @@
                 <label for="pages">Pages: </label>
                 <input type="number" id="pages" min="0">
 
-                <input type="radio" id="true" name="haveRead" value="true">
-                <label for="true">true</label>
-                <input type="radio" id="false" name="haveRead" value="false">
-                <label for="false">false</label>
+                <div class="choices">
+                    <input type="radio" id="true" name="haveRead" value="true">
+                    <label for="true">true</label>
+                    <input type="radio" id="false" name="haveRead" value="false">
+                    <label for="false">false</label>
+                </div>
             </form>
         </dialog>
     </main>
