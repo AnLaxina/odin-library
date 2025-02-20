@@ -2,6 +2,7 @@ const myLibrary = [];
 
 const main = document.querySelector("main");
 const addBookButton = document.querySelector(".addBook");
+const closeButton = document.querySelector(".closeButton");
 const dialog = document.querySelector("dialog");
 
 // Cool object constructor for book
@@ -55,3 +56,6 @@ addBookToLibrary("Harry Potter", "J.K Rowling", 301, true);
 displayBooksToPage(myLibrary);
 
 addBookButton.addEventListener("click", createDialogBox);
+closeButton.addEventListener("click", () => {
+    dialog.close();
+});
