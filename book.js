@@ -72,8 +72,8 @@ function addBookToTable(event) {
     displayBooksToPage(myLibrary)
 }
 
-addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, true);
-addBookToLibrary("Harry Potter", "J.K Rowling", 301, true);
+addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, "yes");
+addBookToLibrary("Harry Potter", "J.K Rowling", 301, "no");
 displayBooksToPage(myLibrary);
 
 addBookButton.addEventListener("click", () => {
