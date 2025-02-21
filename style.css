@@ -42,7 +42,8 @@ form {
 
 .addBook,
 .addBookDialog,
-.deleteBookButton {
+.deleteBookButton,
+.changeReadButton {
     background-color: #1c1c1c;
     color: #bcbcbc;
     font-family: monospace;
@@ -67,7 +68,8 @@ form {
 
 .addBook:hover,
 .addBookDialog:hover,
-.deleteBookButton:hover {
+.deleteBookButton:hover,
+.changeReadButton:hover {
     background-color: #403939;
 }
 
@@ -85,4 +87,11 @@ form {
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+.spaceForButtons {
+    display: flex;
+    /* Prevents bold borders from appearing */
+    border: none;
+    gap: 16px;
 }
