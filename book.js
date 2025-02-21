@@ -36,6 +36,7 @@ function displayBooksToPage(booksList) {
         const pages = document.createElement("td");
         const haveRead = document.createElement("td");
         const deleteButtonSpace = document.createElement("td");
+        deleteButtonSpace.classList.add("spaceForButtons");
 
 
         const deleteButton = document.createElement("button");
@@ -45,6 +46,12 @@ function displayBooksToPage(booksList) {
         deleteButton.addEventListener("click", function () {
             deleteBook(i);
         });
+
+        const changeReadButton = document.createElement("button");
+        changeReadButton.setAttribute("type", "button");
+        changeReadButton.classList.add("changeReadButton");
+        changeReadButton.textContent = "Change read status";
+        changeReadButton.addEventListener("click", () => changeRead(i));
 
         title.textContent = booksList[i].title;
         author.textContent = booksList[i].author;
@@ -57,7 +64,9 @@ function displayBooksToPage(booksList) {
         tableRow.appendChild(pages);
         tableRow.appendChild(haveRead);
         deleteButtonSpace.appendChild(deleteButton);
+        deleteButtonSpace.appendChild(changeReadButton);
         tableRow.appendChild(deleteButtonSpace);
+
 
     }
 }
@@ -86,6 +95,20 @@ function addBookToTable(event) {
 
 function deleteBook(indexOfBook) {
     myLibrary.splice(indexOfBook, 1);
+    displayBooksToPage(myLibrary);
+}
+
+function changeRead(indexOfBook) {
+    let isRead;
+    switch (myLibrary[indexOfBook].read) {
+        case "yes":
+            isRead = "no";
+            break;
+        case "no":
+            isRead = "yes";
+            break;
+    }
+    myLibrary[indexOfBook].read = isRead;
     displayBooksToPage(myLibrary);
 }
 
