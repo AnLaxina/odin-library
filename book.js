@@ -35,6 +35,8 @@ function displayBooksToPage(booksList) {
         const author = document.createElement("td");
         const pages = document.createElement("td");
         const haveRead = document.createElement("td");
+        const deleteButtonSpace = document.createElement("td");
+
 
         const deleteButton = document.createElement("button");
         deleteButton.setAttribute("type", "button");
@@ -54,7 +56,8 @@ function displayBooksToPage(booksList) {
         tableRow.appendChild(author);
         tableRow.appendChild(pages);
         tableRow.appendChild(haveRead);
-        tableRow.appendChild(deleteButton);
+        deleteButtonSpace.appendChild(deleteButton);
+        tableRow.appendChild(deleteButtonSpace);
 
     }
 }

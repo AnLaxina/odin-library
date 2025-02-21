@@ -41,7 +41,8 @@ form {
 }
 
 .addBook,
-.addBookDialog {
+.addBookDialog,
+.deleteBookButton {
     background-color: #1c1c1c;
     color: #bcbcbc;
     font-family: monospace;
@@ -59,8 +60,14 @@ form {
     align-self: center;
 }
 
+.deleteBookButton {
+    width: 100px;
+    height: 50px;
+}
+
 .addBook:hover,
-.addBookDialog:hover {
+.addBookDialog:hover,
+.deleteBookButton:hover {
     background-color: #403939;
 }
 
