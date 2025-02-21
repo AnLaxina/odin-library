@@ -30,6 +30,7 @@ function displayBooksToPage(booksList) {
     tbody.textContent = "";
     for (let i = 0; i < booksList.length; i++) {
         const tableRow = document.createElement("tr");
+        tableRow.setAttribute(`data-book-index`, i);
 
         const title = document.createElement("td");
         const author = document.createElement("td");
