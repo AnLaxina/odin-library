@@ -37,6 +37,12 @@ function displayBooksToPage(booksList) {
         const pages = document.createElement("td");
         const haveRead = document.createElement("td");
 
+        const deleteButton = document.createElement("button");
+        deleteButton.setAttribute("type", "button");
+        deleteButton.classList.add("deleteBookButton");
+        deleteButton.textContent = "Delete Book"
+
+
         title.textContent = booksList[i].title;
         author.textContent = booksList[i].author;
         pages.textContent = booksList[i].pages;
@@ -47,6 +53,7 @@ function displayBooksToPage(booksList) {
         tableRow.appendChild(author);
         tableRow.appendChild(pages);
         tableRow.appendChild(haveRead);
+        tableRow.appendChild(deleteButton);
 
     }
 }
