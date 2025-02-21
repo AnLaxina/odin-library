@@ -30,7 +30,6 @@ function displayBooksToPage(booksList) {
     tbody.textContent = "";
     for (let i = 0; i < booksList.length; i++) {
         const tableRow = document.createElement("tr");
-        tableRow.setAttribute(`data-book-index`, i);
 
         const title = document.createElement("td");
         const author = document.createElement("td");
@@ -40,8 +39,10 @@ function displayBooksToPage(booksList) {
         const deleteButton = document.createElement("button");
         deleteButton.setAttribute("type", "button");
         deleteButton.classList.add("deleteBookButton");
-        deleteButton.textContent = "Delete Book"
-
+        deleteButton.textContent = "Delete Book";
+        deleteButton.addEventListener("click", function () {
+            deleteBook(i);
+        });
 
         title.textContent = booksList[i].title;
         author.textContent = booksList[i].author;
@@ -78,6 +79,11 @@ function addBookToTable(event) {
     event.preventDefault();
     dialog.close();
     displayBooksToPage(myLibrary)
+}
+
+function deleteBook(indexOfBook) {
+    myLibrary.splice(indexOfBook, 1);
+    displayBooksToPage(myLibrary);
 }
 
 addBookToLibrary("The Hobbit", "J.R.R Tolkien", 295, "yes");
