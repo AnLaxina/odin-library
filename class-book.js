@@ -12,17 +12,73 @@ class Book {
 }
 
 class Library {
+    #currentLibrary;
+
     constructor(currentLibrary) {
-        this.currentLibrary = currentLibrary;
+        this.#currentLibrary = currentLibrary;
     }
 
+    get currentLibrary() {
+        return this.#currentLibrary;
+    };
+
     addBookToLibrary(bookObject) {
-        this.currentLibrary.push(bookObject);
+        this.#currentLibrary.push(bookObject);
     }
 
     printCurrentBooks() {
-        for (const book of this.currentLibrary) {
+        for (const book of this.#currentLibrary) {
             console.log(book.info());
+        }
+    }
+}
+
+class DOMManager {
+    constructor() {
+        console.log("DOM Manager created!");
+    }
+
+    displayBooksToPage(booksList) {
+        const tbody = document.querySelector("tbody");
+        tbody.textContent = "";
+        for (let i = 0; i < booksList.length; i++) {
+            const tableRow = document.createElement("tr");
+
+            const title = document.createElement("td");
+            const author = document.createElement("td");
+            const pages = document.createElement("td");
+            const haveRead = document.createElement("td");
+            const deleteButtonSpace = document.createElement("td");
+            deleteButtonSpace.classList.add("spaceForButtons");
+
+
+            const deleteButton = document.createElement("button");
+            deleteButton.setAttribute("type", "button");
+            deleteButton.classList.add("deleteBookButton");
+            deleteButton.textContent = "Delete Book";
+            deleteButton.addEventListener("click", function () {
+                deleteBook(i);
+            });
+
+            const changeReadButton = document.createElement("button");
+            changeReadButton.setAttribute("type", "button");
+            changeReadButton.classList.add("changeReadButton");
+            changeReadButton.textContent = "Change read status";
+            changeReadButton.addEventListener("click", () => changeRead(i));
+
+            title.textContent = booksList[i].title;
+            author.textContent = booksList[i].author;
+            pages.textContent = booksList[i].pages;
+            haveRead.textContent = booksList[i].read;
+
+            tbody.appendChild(tableRow);
+            tableRow.appendChild(title);
+            tableRow.appendChild(author);
+            tableRow.appendChild(pages);
+            tableRow.appendChild(haveRead);
+            deleteButtonSpace.appendChild(deleteButton);
+            deleteButtonSpace.appendChild(changeReadButton);
+            tableRow.appendChild(deleteButtonSpace);
         }
     }
 }
