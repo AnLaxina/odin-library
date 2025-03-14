@@ -47,6 +47,21 @@ class DOMManager {
         this.dialog = document.querySelector("dialog");
         this.addBookDialog = document.querySelector(".addBookDialog");
 
+        // Adding event listeners
+        this.addBookButton.addEventListener("click", () => {
+            this.dialog.showModal();
+        })
+
+        this.closeButton.addEventListener("click", () => {
+            this.form.reset();
+            this.dialog.close();
+        })
+
+        this.addBookDialog.addEventListener("click", (e) => {
+            this.addBookToTable(e);
+            this.form.reset();
+        })
+
         this.library = new Library();
     }
 
@@ -109,12 +124,12 @@ class DOMManager {
         const pages = document.getElementById("pages");
         const haveRead = document.querySelector('input[name="haveRead"]:checked');
 
-        bookToAdd = new Book(title.value, author.value, pages.value, haveRead.value);
+        const bookToAdd = new Book(title.value, author.value, pages.value, haveRead.value);
         this.library.addBookToLibrary(bookToAdd);
 
         event.preventDefault();
-        dialog.close();
-        displayBooksToPage(this.library.currentLibrary());
+        this.dialog.close();
+        this.displayBooksToPage(this.library.currentLibrary);
     }
 }
 
@@ -128,3 +143,5 @@ newLibrary.addBookToLibrary(newBook);
 newLibrary.addBookToLibrary(newBook1);
 newLibrary.addBookToLibrary(newBook2);
 newLibrary.printCurrentBooks();
+
+domManager = new DOMManager();
