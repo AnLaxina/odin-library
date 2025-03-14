@@ -14,7 +14,7 @@ class Book {
 class Library {
     #currentLibrary;
 
-    constructor(currentLibrary) {
+    constructor() {
         this.#currentLibrary = currentLibrary;
     }
 
@@ -36,6 +36,14 @@ class Library {
 class DOMManager {
     constructor() {
         console.log("DOM Manager created!");
+        this.form = document.querySelector("form");
+        this.main = document.querySelector("main");
+        this.addBookButton = document.querySelector(".addBook");
+        this.closeButton = document.querySelector(".closeButton");
+        this.dialog = document.querySelector("dialog");
+        this.addBookDialog = document.querySelector(".addBookDialog");
+
+        this.library = new Library();
     }
 
     displayBooksToPage(booksList) {
@@ -81,6 +89,28 @@ class DOMManager {
             tableRow.appendChild(deleteButtonSpace);
         }
     }
+
+    addBookToTable(event) {
+        // In order to check if the user checked every input 
+        // we first get the form itself and check if it's filled
+        if (!form.checkValidity()) {
+            // Shows the required form messages
+            form.reportValidity();
+            // exit the function since the forms are not filled
+            return;
+        }
+        // Retrieve the form's fields
+        const title = document.getElementById("title");
+        const author = document.getElementById("author");
+        const pages = document.getElementById("pages");
+        const haveRead = document.querySelector('input[name="haveRead"]:checked');
+
+        addBookToLibrary(title.value, author.value, pages.value, haveRead.value);
+
+        event.preventDefault();
+        dialog.close();
+        displayBooksToPage(myLibrary)
+    }
 }
 
 newBook = new Book("Chicken", "Doggy", 100, true);
@@ -88,7 +118,7 @@ newBook1 = new Book("Man", "Doggy", 100, true);
 newBook2 = new Book("Hot", "Doggy", 100, true);
 
 const currentLibrary = []
-newLibrary = new Library(currentLibrary);
+newLibrary = new Library();
 newLibrary.addBookToLibrary(newBook);
 newLibrary.addBookToLibrary(newBook1);
 newLibrary.addBookToLibrary(newBook2);
