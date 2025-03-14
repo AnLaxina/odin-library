@@ -31,6 +31,10 @@ class Library {
             console.log(book.info());
         }
     }
+
+    deleteBook(indexOfBook) {
+        this.#currentLibrary.splice(indexOfBook, 1);
+    }
 }
 
 class DOMManager {
@@ -93,9 +97,9 @@ class DOMManager {
     addBookToTable(event) {
         // In order to check if the user checked every input 
         // we first get the form itself and check if it's filled
-        if (!form.checkValidity()) {
+        if (!this.form.checkValidity()) {
             // Shows the required form messages
-            form.reportValidity();
+            this.form.reportValidity();
             // exit the function since the forms are not filled
             return;
         }
@@ -105,11 +109,12 @@ class DOMManager {
         const pages = document.getElementById("pages");
         const haveRead = document.querySelector('input[name="haveRead"]:checked');
 
-        addBookToLibrary(title.value, author.value, pages.value, haveRead.value);
+        bookToAdd = new Book(title.value, author.value, pages.value, haveRead.value);
+        this.library.addBookToLibrary(bookToAdd);
 
         event.preventDefault();
         dialog.close();
-        displayBooksToPage(myLibrary)
+        displayBooksToPage(this.library.currentLibrary());
     }
 }
 
