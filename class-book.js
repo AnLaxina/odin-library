@@ -1,147 +1,123 @@
+// Book Class: Represents a single book
 class Book {
     constructor(title, author, pages, haveRead) {
         this.title = title;
         this.author = author;
         this.pages = pages;
-        this.haveRead = haveRead;
+        this.read = haveRead;
+    }
+
+    toggleRead() {
+        this.read = this.read === "yes" ? "no" : "yes";
     }
 
     info() {
-        return `${this.title} by ${this.author}, ${this.pages} pages, read: ${this.haveRead}`;
+        return `${this.title} by ${this.author}, ${this.pages} pages, read: ${this.read}`;
     }
 }
 
+// Library Class: Handles book storage and modification
 class Library {
-    #currentLibrary;
+    #books = [];
 
-    constructor() {
-        this.#currentLibrary = currentLibrary;
+    get books() {
+        return this.#books;
     }
 
-    get currentLibrary() {
-        return this.#currentLibrary;
-    };
-
-    addBookToLibrary(bookObject) {
-        this.#currentLibrary.push(bookObject);
+    addBook(book) {
+        this.#books.push(book);
     }
 
-    printCurrentBooks() {
-        for (const book of this.#currentLibrary) {
-            console.log(book.info());
-        }
+    deleteBook(index) {
+        this.#books.splice(index, 1);
     }
 
-    deleteBook(indexOfBook) {
-        this.#currentLibrary.splice(indexOfBook, 1);
+    toggleBookRead(index) {
+        this.#books[index].toggleRead();
     }
 }
 
-class DOMManager {
-    constructor() {
-        console.log("DOM Manager created!");
-        this.form = document.querySelector("form");
-        this.main = document.querySelector("main");
-        this.addBookButton = document.querySelector(".addBook");
-        this.closeButton = document.querySelector(".closeButton");
-        this.dialog = document.querySelector("dialog");
-        this.addBookDialog = document.querySelector(".addBookDialog");
-
-        // Adding event listeners
-        this.addBookButton.addEventListener("click", () => {
-            this.dialog.showModal();
-        })
-
-        this.closeButton.addEventListener("click", () => {
-            this.form.reset();
-            this.dialog.close();
-        })
-
-        this.addBookDialog.addEventListener("click", (e) => {
-            this.addBookToTable(e);
-            this.form.reset();
-        })
-
-        this.library = new Library();
-    }
-
-    displayBooksToPage(booksList) {
+// UI Class: Handles rendering and event listeners
+class UI {
+    static displayBooks(library) {
         const tbody = document.querySelector("tbody");
-        tbody.textContent = "";
-        for (let i = 0; i < booksList.length; i++) {
+        tbody.innerHTML = ""; // Clear table before rendering
+
+        library.books.forEach((book, index) => {
             const tableRow = document.createElement("tr");
 
-            const title = document.createElement("td");
-            const author = document.createElement("td");
-            const pages = document.createElement("td");
-            const haveRead = document.createElement("td");
-            const deleteButtonSpace = document.createElement("td");
-            deleteButtonSpace.classList.add("spaceForButtons");
-
-
-            const deleteButton = document.createElement("button");
-            deleteButton.setAttribute("type", "button");
-            deleteButton.classList.add("deleteBookButton");
-            deleteButton.textContent = "Delete Book";
-            deleteButton.addEventListener("click", function () {
-                deleteBook(i);
-            });
-
-            const changeReadButton = document.createElement("button");
-            changeReadButton.setAttribute("type", "button");
-            changeReadButton.classList.add("changeReadButton");
-            changeReadButton.textContent = "Change read status";
-            changeReadButton.addEventListener("click", () => changeRead(i));
-
-            title.textContent = booksList[i].title;
-            author.textContent = booksList[i].author;
-            pages.textContent = booksList[i].pages;
-            haveRead.textContent = booksList[i].read;
+            tableRow.innerHTML = `
+                <td>${book.title}</td>
+                <td>${book.author}</td>
+                <td>${book.pages}</td>
+                <td>${book.read}</td>
+                <td class="spaceForButtons">
+                    <button class="deleteBookButton" data-index="${index}">Delete</button>
+                    <button class="changeReadButton" data-index="${index}">Toggle Read</button>
+                </td>
+            `;
 
             tbody.appendChild(tableRow);
-            tableRow.appendChild(title);
-            tableRow.appendChild(author);
-            tableRow.appendChild(pages);
-            tableRow.appendChild(haveRead);
-            deleteButtonSpace.appendChild(deleteButton);
-            deleteButtonSpace.appendChild(changeReadButton);
-            tableRow.appendChild(deleteButtonSpace);
-        }
-    }
+        });
 
-    addBookToTable(event) {
-        // In order to check if the user checked every input 
-        // we first get the form itself and check if it's filled
-        if (!this.form.checkValidity()) {
-            // Shows the required form messages
-            this.form.reportValidity();
-            // exit the function since the forms are not filled
-            return;
-        }
-        // Retrieve the form's fields
-        const title = document.getElementById("title");
-        const author = document.getElementById("author");
-        const pages = document.getElementById("pages");
-        const haveRead = document.querySelector('input[name="haveRead"]:checked');
+        // Attach event listeners after rendering
+        document.querySelectorAll(".deleteBookButton").forEach(button =>
+            button.addEventListener("click", (e) => {
+                const index = e.target.getAttribute("data-index");
+                library.deleteBook(index);
+                UI.displayBooks(library);
+            })
+        );
 
-        const bookToAdd = new Book(title.value, author.value, pages.value, haveRead.value);
-        this.library.addBookToLibrary(bookToAdd);
-
-        event.preventDefault();
-        this.dialog.close();
-        this.displayBooksToPage(this.library.currentLibrary);
+        document.querySelectorAll(".changeReadButton").forEach(button =>
+            button.addEventListener("click", (e) => {
+                const index = e.target.getAttribute("data-index");
+                library.toggleBookRead(index);
+                UI.displayBooks(library);
+            })
+        );
     }
 }
 
-newBook = new Book("Chicken", "Doggy", 100, true);
-newBook1 = new Book("Man", "Doggy", 100, true);
-newBook2 = new Book("Hot", "Doggy", 100, true);
+// Main Application Logic
+const library = new Library();
+const form = document.querySelector("form");
+const dialog = document.querySelector("dialog");
+const addBookButton = document.querySelector(".addBook");
+const closeButton = document.querySelector(".closeButton");
+const addBookDialog = document.querySelector(".addBookDialog");
 
-const currentLibrary = []
-newLibrary = new Library();
-newLibrary.addBookToLibrary(newBook);
-newLibrary.addBookToLibrary(newBook1);
-newLibrary.addBookToLibrary(newBook2);
-newLibrary.printCurrentBooks();
+function addBookFromForm(event) {
+    event.preventDefault();
 
-domManager = new DOMManager();
+    if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+    }
+
+    const title = document.getElementById("title").value;
+    const author = document.getElementById("author").value;
+    const pages = document.getElementById("pages").value;
+    const haveRead = document.querySelector('input[name="haveRead"]:checked').value;
+
+    library.addBook(new Book(title, author, pages, haveRead));
+    UI.displayBooks(library);
+
+    dialog.close();
+    form.reset();
+}
+
+// Add sample books
+library.addBook(new Book("The Hobbit", "J.R.R Tolkien", 295, "yes"));
+library.addBook(new Book("Harry Potter", "J.K Rowling", 301, "no"));
+
+// Initial UI render
+UI.displayBooks(library);
+
+// Event Listeners
+addBookButton.addEventListener("click", () => dialog.showModal());
+closeButton.addEventListener("click", () => {
+    form.reset();
+    dialog.close();
+});
+addBookDialog.addEventListener("click", addBookFromForm);
